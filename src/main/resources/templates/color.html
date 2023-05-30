@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div style="margin-top: 30px; margin-bottom: 20px"><h1>Product List</h1></div>
+</div>
+
+<div style="margin-bottom: 50px">
+    <form th:action="@{/colorList}" method="get">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" name="keyword"/>
+            <button type="submit" class="btn btn-outline-primary">search</button>
+        </div>
+    </form>
+</div>
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date Create</th>
+            <th scope="col">Date Correct</th>
+            <th scope="col">color</th>
+            <th scope="col">Status</th>
+            <th scope="col">Function</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cl : ${colorList}">
+            <td th:text="${cl.id}"></td>
+            <td th:text="${cl.code}"></td>
+            <td th:text="${cl.name}"></td>
+            <td th:text="${cl.dateCreate}"></td>
+            <td th:text="${cl.dateCorrect}"></td>
+            <td>
+                <img th:src="@{'/images/' + ${color.images}}" alt="Color Image" />
+                <!--            <td><img th:src="@{${color.images}}" alt="Color Image" /></td>-->
+            </td>
+            <td th:text="${cl.status == 0 ? 'Active' : 'Inactive'}"></td>
+            <td>
+                <a th:href="@{'/color/edit/' + ${cl.id}}" class="btn btn-success">Update</a>
+                <a th:href="@{'/color/delete/'+ ${cl.id}}" class="btn btn-danger">DELETE</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a th:href="@{'/color/new'}" class="btn btn-danger">ADD</a>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div style="margin-top: 30px; margin-bottom: 20px"><h1>Product List</h1></div>
+</div>
+
+<div style="margin-bottom: 50px">
+    <form th:action="@{/customerList}" method="get">
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                   aria-describedby="search-addon" name="keyword"/>
+            <button type="submit" class="btn btn-outline-primary">search</button>
+        </div>
+    </form>
+</div>
+<div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date Create</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cl : ${customer}">
+            <td th:text="${cl.id}"></td>
+            <td th:text="${cl.code}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

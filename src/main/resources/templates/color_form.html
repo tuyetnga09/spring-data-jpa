@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div th:if="${color.id == null}"><h1>Create Color</h1></div>
+    <div th:unless="${color.id == null}"><h1>Edit Color</h1></div>
+    <div class="container text-center">
+        <form th:action="@{/color/save}" th:object="${color}" method="post" enctype="multipart/form-data"
+              style="max-width: 600px; margin: 0 auto">
+            <input type="hidden" th:field="*{id}" th:value="${color.id}"/>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-4">Code Color: </label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{code}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" name="file" id="image" accept="image/*">
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-4">Name Color: </label>
+                <div class="col-sm-8">
+                    <input type="text" th:field="*{name}" class="form-control" required>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" style="margin-top: 50px">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

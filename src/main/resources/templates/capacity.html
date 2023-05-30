@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+  <div style="margin-top: 30px; margin-bottom: 20px"><h1>Product List</h1></div>
+</div>
+<div style="margin-bottom: 50px">
+  <form th:action="@{/capacityList}" method="get">
+    <div class="input-group">
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name = "keyword" />
+      <button type="submit" class="btn btn-outline-primary">search</button>
+    </div>
+  </form>
+</div>
+<div>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Code</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date Create</th>
+      <th scope="col">Date Correct</th>
+      <th scope="col">Status</th>
+      <th scope="col">Function</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="capacityList : ${capacityList}">
+      <td th:text="${capacityList.id}"></td>
+      <td th:text="${capacityList.code}"></td>
+      <td th:text="${capacityList.name}"></td>
+      <td th:text="${capacityList.dateCreate}"></td>
+      <td th:text="${capacityList.dateCorrect}"></td>
+      <td th:text="${capacityList.status == 0 ? 'Active' : 'Inactive'}"></td>
+      <td>
+        <a th:href="@{'/capacity/edit/' + ${capacityList.id}}" class="btn btn-success">Update</a>
+        <a th:href="@{'/capacity/delete/'+ ${capacityList.id}}"class="btn btn-danger">DELETE</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<a th:href="@{'/capacity/new'}" class="btn btn-danger">ADD</a>
+
+</body>
+</html>

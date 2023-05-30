@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px">Bill Details</h1>
+    <h3>Bill ID: <span th:text="${bill.id}"></span></h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through bill items -->
+        <tr th:each="billItem : ${bill.items}">
+            <td th:text="${billItem.product.name}"></td>
+            <td th:text="${billItem.product.category.productLine.price}"></td>
+            <td th:text="${billItem.quantity}"></td>
+            <td th:text="${billItem.subtotal}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" style="text-align: right;">Total Amount:</td>
+            <td th:text="${bill.totalAmount}"></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+</body>
+</html>

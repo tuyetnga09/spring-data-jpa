@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div th:if="${category.id == null}"><h1>Create Category</h1></div>
+    <div th:unless="${category.id == null}"><h1>Edit Category</h1></div>
+    <div class="container text-center">
+        <form th:action="@{/category/save}" th:object="${category}" method="post"
+              style="max-width: 600px; margin: 0 auto">
+            <input type="hidden" th:field="*{id}" th:value="${category.id}"/>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Code Product: </label>
+                <div class="col-sm-7">
+                    <input type="text" th:field="*{code}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Name Product: </label>
+                <div class="col-sm-7">
+                    <input type="text" th:field="*{name}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Color: </label>
+                <div class="col-sm-7">
+                    <select th:field="*{color}" class="form-control" required>
+                        <th:block th:each="color : ${color}">
+                            <option th:text="${color.name}" th:value="${color.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Capacity: </label>
+                <div class="col-sm-7">
+                    <select th:field="*{capacity}" class="form-control" required>
+                        <th:block th:each="cp : ${capacity}">
+                            <option th:text="${cp.name}" th:value="${cp.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Product Line: </label>
+                <div class="col-sm-7">
+                    <select th:field="*{productLine}" class="form-control" required>
+                        <th:block th:each="pr : ${product}">
+                            <option th:text="${pr.name}" th:value="${pr.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" style="margin-top: 50px">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="my-cart">
+    <h1 style="color: crimson; text-align: center; margin-top: 50px;  margin-bottom: 50px" >YOUR CART</h1>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <!-- ... -->
+    <tbody>
+    <tr th:each="cartItem : ${cartItems}">
+        <td><img th:src="@{'/images/' + ${cartItem.product.images}}" style="width: 100px; height: 150px;"></td>
+        <td th:text="${cartItem.product.name}"></td>
+        <td th:text="${cartItem.product.category.productLine.price}"></td>
+        <td>
+            <!-- Đoạn mã HTML cho tăng/giảm số lượng -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <form method="post" action="/cart/decrease">
+                        <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
+                        <button class="btn btn-outline-secondary" type="submit" onclick="decreaseQuantity(${cartItem.product.id}); return false;">-</button>
+                    </form>
+                </div>
+                <input id="quantity-${cartItem.product.id}" type="number" min="1" th:value="${cartItem.number}" data-product-id="${cartItem.product.id}" data-price="${cartItem.product.category.productLine.price}" oninput="updateQuantity(this)">
+                <div class="input-group-append">
+                    <form method="post" action="/cart/increase">
+                        <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
+                        <button class="btn btn-outline-secondary" type="submit" onclick="increaseQuantity(${cartItem.product.id}); return false;">+</button>
+                    </form>
+                </div>
+            </div>
+        </td>
+        <td>
+            <span id="subtotal-${cartItem.product.id}" class="subtotal" th:text="${cartItem.product.category.productLine.price * cartItem.number}"></span>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<div class="total-amount">
+    <h4 style="margin-top: 60px; margin-left: 1200px; color: crimson">Total Amount: <span th:text="${totalAmount}"></span></h4>
+</div>
+<form method="post" th:action="@{/bill}">
+    <button class="btn btn-primary" type="submit">Proceed to Bill</button>
+</form>
+<script th:inline="javascript">
+    function increaseQuantity(productId) {
+        var quantityInput = document.getElementById('quantity-' + productId);
+        var subtotalElement = document.getElementById('subtotal-' + productId);
+        var quantity = parseInt(quantityInput.value);
+        var price = parseFloat(quantityInput.getAttribute('data-price'));
+
+        quantity++;
+        quantityInput.value = quantity;
+        subtotalElement.textContent = (price * quantity).toFixed(2);
+
+        calculateTotalAmount();
+    }
+
+    function decreaseQuantity(productId) {
+        var quantityInput = document.getElementById('quantity-' + productId);
+        var subtotalElement = document.getElementById('subtotal-' + productId);
+        var quantity = parseInt(quantityInput.value);
+        var price = parseFloat(quantityInput.getAttribute('data-price'));
+
+        if (quantity > 1) {
+            quantity--;
+            quantityInput.value = quantity;
+            subtotalElement.textContent = (price * quantity).toFixed(2);
+
+            calculateTotalAmount();
+        }
+    }
+
+    function updateSubtotal(productId) {
+        var quantityInput = document.getElementById('quantity-' + productId);
+        var subtotalElement = document.getElementById('subtotal-' + productId);
+        var quantity = parseInt(quantityInput.value);
+        var price = parseFloat(quantityInput.getAttribute('data-price'));
+
+        subtotalElement.textContent = (price * quantity).toFixed(2);
+
+        calculateTotalAmount();
+    }
+
+    function calculateTotalAmount() {
+        var subtotalElements = document.getElementsByClassName('subtotal');
+        var totalAmountElement = document.getElementById('totalAmount');
+        var totalAmount = 0;
+
+        for (var i = 0; i < subtotalElements.length; i++) {
+            var subtotal = parseFloat(subtotalElements[i].textContent);
+            totalAmount += subtotal;
+        }
+
+        totalAmountElement.textContent = totalAmount.toFixed(2);
+    }
+    function updateQuantity(productId) {
+        var quantityInput = document.getElementById('quantity-' + productId);
+        var subtotalElement = document.getElementById('subtotal-' + productId);
+        var quantity = parseInt(quantityInput.value);
+        var price = parseFloat(quantityInput.getAttribute('data-price'));
+
+        if (isNaN(quantity)) {
+            quantity = 0;
+        }
+
+        quantityInput.value = quantity;
+        subtotalElement.textContent = (price * quantity).toFixed(2);
+        updateTotalAmount();
+    }
+
+    function updateTotalAmount() {
+        var subtotalElements = document.getElementsByClassName('subtotal');
+        var totalAmountElement = document.getElementById('totalAmount');
+        var totalAmount = 0;
+
+        for (var i = 0; i < subtotalElements.length; i++) {
+            var subtotal = parseFloat(subtotalElements[i].textContent);
+            totalAmount += subtotal;
+        }
+
+        totalAmountElement.textContent = totalAmount.toFixed(2);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div th:if="${productDetail.id == null}"><h1>Create Product</h1></div>
+    <div th:unless="${productDetail.id == null}"><h1>Edit ProductLine</h1></div>
+    <div class="container text-center">
+        <form th:action="@{/productDetail/save}" th:object="${productDetail}" method="post"
+              enctype="multipart/form-data"
+              style="max-width: 600px; margin: 0 auto">
+            <input type="hidden" th:field="*{id}" th:value="${productDetail.id}"/>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Code Product: </label>
+                <div class="col-sm-7">
+                    <input type="text" th:field="*{code}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Name Product: </label>
+                <div class="col-sm-7">
+                    <input type="text" th:field="*{name}" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-bottom: 50px">
+                <label class="col-form-label col-sm-5">Name Product: </label>
+                <div class="col-sm-7">
+                    <input type="number" th:field="*{number}" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" name="file" id="image" accept="image/*">
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-5">Manufacturer: </label>
+                <div class="col-sm-7">
+                    <select th:field="*{category}" class="form-control" required>
+                        <th:block th:each="cr : ${category}">
+                            <option th:text="${cr.name}" th:value="${cr.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" style="margin-top: 50px">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
