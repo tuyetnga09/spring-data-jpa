@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+              aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span> <span
+              class="icon-bar"></span> <span class="icon-bar"></span> <span
+              class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" th:href="@{/}">Registration and
+        Login Module</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container text-center">
   <div style="margin-top: 30px; margin-bottom: 20px"><h1>Product List</h1></div>
 </div>
@@ -39,14 +61,14 @@
       <td th:text="${capacityList.dateCorrect}"></td>
       <td th:text="${capacityList.status == 0 ? 'Active' : 'Inactive'}"></td>
       <td>
-        <a th:href="@{'/capacity/edit/' + ${capacityList.id}}" class="btn btn-success">Update</a>
-        <a th:href="@{'/capacity/delete/'+ ${capacityList.id}}"class="btn btn-danger">DELETE</a>
+        <a th:href="@{'/admin/capacity/edit/' + ${capacityList.id}}" class="btn btn-success">Update</a>
+        <a th:href="@{'/admin/capacity/delete/'+ ${capacityList.id}}"class="btn btn-danger">DELETE</a>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-<a th:href="@{'/capacity/new'}" class="btn btn-danger">ADD</a>
+<a th:href="@{'/admin/capacity/new'}" class="btn btn-danger">ADD</a>
 
 </body>
 </html>

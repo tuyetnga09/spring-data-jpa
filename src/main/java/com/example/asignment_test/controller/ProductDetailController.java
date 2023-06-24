@@ -1,22 +1,15 @@
 package com.example.asignment_test.controller;
 
 import com.example.asignment_test.entity.Category;
-import com.example.asignment_test.entity.Color;
-import com.example.asignment_test.entity.Manufacturer;
 import com.example.asignment_test.entity.ProductDetail;
-import com.example.asignment_test.entity.ProductLine;
 import com.example.asignment_test.repository.CategoryRepository;
-import com.example.asignment_test.repository.ManufacturerRepository;
 import com.example.asignment_test.repository.ProducDetailRepository;
-import com.example.asignment_test.repository.ProductLineRepository;
 import com.example.asignment_test.service.ProductDetailService;
-import com.example.asignment_test.service.ProductLineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +36,8 @@ public class ProductDetailController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping("display")
+    @GetMapping("/display")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String listProductDetail(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<ProductDetail> productDetails;
         if (keyword != null && !keyword.isEmpty()) {

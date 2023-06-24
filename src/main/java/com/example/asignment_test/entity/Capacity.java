@@ -1,15 +1,4 @@
 package com.example.asignment_test.entity;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,12 +6,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.mock.web.MockMultipartFile;
 import java.util.Date;
 
 @Entity
 @Table(name = "Capacity")
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Builder
@@ -31,6 +30,8 @@ public class Capacity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+
 
     @Column(name = "Code")
     private String code;
@@ -56,6 +57,9 @@ public class Capacity {
         }
         this.dateCorrect = new Date();
     }
+    public Capacity() {
 
+        this.status = 0;
+    }
 
 }

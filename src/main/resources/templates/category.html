@@ -41,14 +41,14 @@
             <td th:text="${ct.productLine.name}"></td>
             <td th:text="${ct.status == 0 ? 'Active' : 'Inactive'}"></td>
             <td>
-                <a th:href="@{'/category/edit/' + ${ct.id}}" class="btn btn-success">Update</a>
-                <a th:href="@{'/category/delete/'+ ${ct.id}}"class="btn btn-danger">DELETE</a>
+                <a th:href="@{'/admin/category/edit/' + ${ct.id}}" class="btn btn-success">Update</a>
+                <a th:href="@{'/admin/category/delete/'+ ${ct.id}}"class="btn btn-danger">DELETE</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<a th:href="@{'/category/new'}" class="btn btn-danger">ADD</a>
+<a th:href="@{'/admin/category/new'}" class="btn btn-danger">ADD</a>
 
 </body>
 </html>

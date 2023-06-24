@@ -1,15 +1,9 @@
 package com.example.asignment_test.controller;
 
-import com.example.asignment_test.entity.Capacity;
 import com.example.asignment_test.entity.Color;
-import com.example.asignment_test.repository.CapacityRepository;
 import com.example.asignment_test.repository.ColorRepository;
-import com.example.asignment_test.service.CapacityService;
 import com.example.asignment_test.service.ColorService;
-import com.example.asignment_test.service.impl.CapacityServiceImpl;
-import com.example.asignment_test.service.impl.ColorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.Base64;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +24,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/color/")
+@RequestMapping("/admin/color/")
 public class ColorController {
     @Autowired
     private ColorService colorService;
@@ -56,7 +50,7 @@ public class ColorController {
     }
 
 
-    @PostMapping("/save")
+    @PostMapping("save")
     public String createCategory(@ModelAttribute Color categoryForm, @RequestParam("file") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -76,7 +70,7 @@ public class ColorController {
         }
 
             colorService.insert(categoryForm);
-        return "redirect:/color/display";
+        return "redirect:/admin/color/display";
     }
 
 
@@ -94,7 +88,7 @@ public class ColorController {
             color.setStatus(1);
             colorRepository.save(color);
         }
-        return "redirect:/color/display";
+        return "redirect:/admin/color/display";
     }
 
 }

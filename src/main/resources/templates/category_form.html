@@ -10,7 +10,7 @@
     <div th:if="${category.id == null}"><h1>Create Category</h1></div>
     <div th:unless="${category.id == null}"><h1>Edit Category</h1></div>
     <div class="container text-center">
-        <form th:action="@{/category/save}" th:object="${category}" method="post"
+        <form th:action="@{/admin/category/save}" th:object="${category}" method="post"
               style="max-width: 600px; margin: 0 auto">
             <input type="hidden" th:field="*{id}" th:value="${category.id}"/>
             <div class="form-group row" style="margin-bottom: 50px">

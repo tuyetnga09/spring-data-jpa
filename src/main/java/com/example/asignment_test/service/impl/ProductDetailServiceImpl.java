@@ -6,6 +6,9 @@ import com.example.asignment_test.repository.ProducDetailRepository;
 import com.example.asignment_test.repository.ProductLineRepository;
 import com.example.asignment_test.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<ProductDetail> getAll() {
         return producDetailRepository.findAll();
     }
+
 
     @Override
     public ProductDetail insert(ProductDetail productDetail) {
@@ -39,5 +43,12 @@ public class ProductDetailServiceImpl implements ProductDetailService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public ProductDetail getProductDetailsById(Integer productId) {
+        // Lấy thông tin sản phẩm từ cơ sở dữ liệu (sử dụng repository)
+        Optional<ProductDetail> productDetailsOptional = producDetailRepository.findById(productId);
+        return productDetailsOptional.orElse(null);
     }
 }

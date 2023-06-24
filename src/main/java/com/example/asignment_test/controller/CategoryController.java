@@ -3,17 +3,12 @@ package com.example.asignment_test.controller;
 import com.example.asignment_test.entity.Capacity;
 import com.example.asignment_test.entity.Category;
 import com.example.asignment_test.entity.Color;
-import com.example.asignment_test.entity.Manufacturer;
 import com.example.asignment_test.entity.ProductLine;
 import com.example.asignment_test.repository.CapacityRepository;
 import com.example.asignment_test.repository.CategoryRepository;
 import com.example.asignment_test.repository.ColorRepository;
-import com.example.asignment_test.repository.ManufacturerRepository;
 import com.example.asignment_test.repository.ProductLineRepository;
-import com.example.asignment_test.service.CapacityService;
 import com.example.asignment_test.service.CategoryService;
-import com.example.asignment_test.service.ColorService;
-import com.example.asignment_test.service.ProductLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/category/")
+@RequestMapping("/admin/category/")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -81,7 +76,7 @@ public class CategoryController {
         }
 
         categoryService.insert(category);
-        return "redirect:/category/display";
+        return "redirect:/admin/category/display";
     }
 
     @GetMapping("edit/{id}")
@@ -104,7 +99,7 @@ public class CategoryController {
             category.setStatus(1);
             categoryRepository.save(category);
         }
-        return "redirect:/category/display";
+        return "redirect:/admin/category/display";
     }
 
 }

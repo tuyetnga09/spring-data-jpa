@@ -10,7 +10,7 @@
     <div th:if="${color.id == null}"><h1>Create Color</h1></div>
     <div th:unless="${color.id == null}"><h1>Edit Color</h1></div>
     <div class="container text-center">
-        <form th:action="@{/color/save}" th:object="${color}" method="post" enctype="multipart/form-data"
+        <form th:action="@{/admin/color/save}" th:object="${color}" method="post" enctype="multipart/form-data"
               style="max-width: 600px; margin: 0 auto">
             <input type="hidden" th:field="*{id}" th:value="${color.id}"/>
             <div class="form-group row" style="margin-bottom: 50px">

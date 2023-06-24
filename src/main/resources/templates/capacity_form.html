@@ -10,7 +10,7 @@
     <div th:if="${capacity.id == null}"><h1>Create Capactiy</h1></div>
     <div th:unless="${capacity.id == null}"><h1>Edit Capactiy</h1></div>
     <div class="container text-center">
-        <form th:action="@{/capacity/save}" th:object="${capacity}" method="post"
+        <form th:action="@{/admin/capacity/save}" th:object="${capacity}" method="post"
               style="max-width: 600px; margin: 0 auto">
             <input type="hidden" th:field="*{id}" th:value="${capacity.id}"/>
             <div class="form-group row" style="margin-bottom: 50px">

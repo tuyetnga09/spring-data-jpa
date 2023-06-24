@@ -41,19 +41,19 @@
             <td th:text="${cl.dateCreate}"></td>
             <td th:text="${cl.dateCorrect}"></td>
             <td>
-                <img th:src="@{'/images/' + ${color.images}}" alt="Color Image" />
+                <img th:src="@{'/images/' + ${cl.images}}" alt="Color Image" style="width: 250px; height: 150px" />
                 <!--            <td><img th:src="@{${color.images}}" alt="Color Image" /></td>-->
             </td>
             <td th:text="${cl.status == 0 ? 'Active' : 'Inactive'}"></td>
             <td>
-                <a th:href="@{'/color/edit/' + ${cl.id}}" class="btn btn-success">Update</a>
-                <a th:href="@{'/color/delete/'+ ${cl.id}}" class="btn btn-danger">DELETE</a>
+                <a th:href="@{'/admin/color/edit/' + ${cl.id}}" class="btn btn-success">Update</a>
+                <a th:href="@{'/admin/color/delete/'+ ${cl.id}}" class="btn btn-danger">DELETE</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<a th:href="@{'/color/new'}" class="btn btn-danger">ADD</a>
+<a th:href="@{'/admin/color/new'}" class="btn btn-danger">ADD</a>
 
 </body>
 </html>

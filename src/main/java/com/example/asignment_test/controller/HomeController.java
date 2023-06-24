@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
+
 public class HomeController {
     @Autowired
     private ProductDetailService productDetailService;
@@ -22,12 +22,13 @@ public class HomeController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping("home")
+    @GetMapping("/home")
     public String listProductDetail( Model model) {
         List<ProductDetail> productDetails;
         productDetails = producDetailRepository.findAll();
         model.addAttribute("productDetail", productDetails);
         return "trang-chu";
     }
+
 
 }
